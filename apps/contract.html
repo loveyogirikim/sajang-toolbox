@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>근로계약서 만들기 — 법정 필수 항목 채워서 인쇄 | 사장님 업무 도구함</title>
+<meta name="description" content="근로기준법 제17조·시행령 제8조·기간제법 제17조가 정한 필수 항목만 채우면 정규직·기간제·단시간(아르바이트) 근로계약서를 A4로 인쇄합니다. 가입 없이 무료, 입력값은 기기 밖으로 나가지 않습니다.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../style.css?v=18">
+</head>
+<body>
+<a class="skip" href="#main">본문 바로가기</a>
+<header class="site-head"><a class="brand" href="../">사장님 업무 도구함</a><span class="crumb">근로계약서 만들기</span></header>
+<main id="main" class="wrap print-doc">
+  <h1>근로계약서 만들기</h1>
+  <p class="lede">법이 계약서에 꼭 적으라고 정한 항목만 채우면 정규직·기간제·아르바이트 근로계약서가 만들어져요. 인쇄해서 2부 서명하고 1부는 직원에게 주세요.</p>
+  <p class="privacy">적은 내용은 이 기기 안에서만 쓰이고 저장하거나 보내지 않아요. 창을 닫으면 사라져요.</p>
+  <div class="maker">
+    <form id="f-contract" class="form" novalidate><div id="fields"></div>
+      <div class="btn-row">
+        <button class="btn btn-primary" type="button" id="print">인쇄 (A4)</button>
+        <button class="btn" type="button" id="copy">글로 복사</button>
+      </div>
+    </form>
+    <section class="contract" id="doc" aria-live="polite"></section>
+  </div>
+  <aside class="notice">이 계약서는 근로기준법 제17조·시행령 제8조·기간제법 제17조의 필수 항목을 갖춘 기본 틀이에요. 수습·상여금·비밀유지 같은 조항은 회사 사정에 맞게 더하고, 최저임금(모든 사업장)·주 52시간(상시 5명 이상) 등 법 기준을 어기는 내용은 적어도 효력이 없어요. 기간제 계약은 통틀어 2년을 넘기면 무기계약으로 봐요(기간제법 제4조). 최종 확인은 노무사나 고용노동부 고객상담센터(국번 없이 1350)에.</aside>
+</main>
+<footer class="foot wrap">
+  <p>사장님 업무 도구함 · 계산·안내는 참고용이며 최종 판단은 전문가와 관계 기관에 확인하세요.</p>
+</footer>
+<script src="../core/toolbox-core.js?v=18"></script>
+<script src="../core/contract-core.js?v=18"></script>
+<script src="../ui.js?v=18"></script>
+<script src="contract.js?v=18"></script>
+<script src="../park-annotate.js?v=18" data-factory="sajang-toolbox" defer></script>
+</body>
+</html>

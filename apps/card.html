@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>카드뉴스 만들기 — 가게 정보로 8회 연재·전략·7장까지, 1:1·4:5 카드 이미지 | 사장님 업무 도구함</title>
+<meta name="description" content="가게·회사 정보로 한 달 치 카드뉴스 연재표(기본 8회, 회차별 주제·앵글·퍼널·CTA)를 짜고, 회차마다 또는 주제나 원문으로 AI에게 받을 지시문을 만들어 타깃·앵글 3개·퍼널·CTA를 정하고, 제목형·목록형·숫자형·인용형 카드뉴스를 1장부터 7장까지 1:1(1080×1080)·4:5(1080×1350) PNG로 저장합니다. 글자 크기·굵기·색·위치 조절, ZIP 묶음 저장, 엑셀용 제작 기록, 캡션 복사, 걸릴 수 있는 광고 표현 안내. 이 도구는 가입·API 키 없이 무료(1단계에 쓰는 AI의 요금·한도는 그 서비스 기준).">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../style.css?v=18">
+</head>
+<body>
+<a class="skip" href="#main">본문 바로가기</a>
+<header class="site-head"><a class="brand" href="../">사장님 업무 도구함</a><span class="crumb">카드뉴스 만들기</span></header>
+<main id="main" class="wrap print-doc">
+  <h1>카드뉴스 만들기</h1>
+  <p class="lede">가게·회사 정보를 한 번 적어 두고, 한 달 치 카드뉴스 연재(기본 8회)를 짠 뒤 회차마다 카드를 만들어요. 이 도구는 AI에게 줄 지시문을 만들어 줘요 — 내가 쓰는 AI에 붙여 넣어 받은 연재표·카드 문구를 다시 붙여 넣으면 채워져요. 한 편만 만들거나 직접 써도 돼요. 한 장부터 일곱 장 묶음까지.</p>
+  <p class="privacy">적은 내용과 로고는 이 기기 안에서만 그려지고, 이 도구는 AI를 포함해 어디에도 보내지 않아요. 지시문은 내가 직접 복사해 쓰는 AI 대화창에 붙여 넣는 것이라, 지시문에 든 가게 정보·주제·원문은 그 AI 회사로 가요 — 비밀 내용과 손님 개인정보는 빼세요. 작업 파일을 내려받아 두면 다음에 열어 이어서 할 수 있어요(로고는 작업 파일에 넣지 않아요).</p>
+  <div class="maker">
+    <form id="f-card" class="form" novalidate>
+      <fieldset><legend>1. 가게·회사 정보 <small>한 번 적어 두면 이 기기에 저장돼 지시문에 자동으로 들어가요. '우리 가게 카드' 도구와 같은 정보예요. 공개해도 되는 사업 정보만 적으세요(사람 이름·주민번호 칸은 없어요)</small></legend>
+        <details id="pdetails" class="full"><summary id="psummary">정보 적기·고치기</summary>
+          <div id="pfields" class="pfields"></div>
+          <div class="btn-row"><button class="btn btn-small" type="button" id="pclear">이 기기에서 지우기</button></div>
+        </details>
+        <p class="muted" id="pstatus" aria-live="polite"></p>
+      </fieldset>
+      <fieldset><legend>2. 만드는 방식 <small>시리즈는 한 달 치 주제를 먼저 짜고 회차마다 카드를 만들어요</small></legend><div class="chips" id="modes" role="group" aria-label="만드는 방식"></div></fieldset>
+      <fieldset id="series-box"><legend>시리즈 짜기 — 연재표 <small>내가 쓰는 AI에게 가게 정보로 회차별 주제·앵글·퍼널·CTA를 받아 와요. 이 도구는 AI에 연결하지 않아 API 키가 필요 없어요 — AI 쪽 가입·무료 한도·요금은 그 서비스 기준이에요. 연재표는 이 기기에 저장되지 않으니 '연재표 저장'으로 파일을 받아 두세요</small></legend>
+        <label class="field full">이번 달 목표 <small>(선택) 예: 토요일 예약 늘리기, 새로 나온 원두 알리기</small><input name="goal" maxlength="120" autocomplete="off"></label>
+        <label class="field full">몇 회? <select name="episodes"><option>4</option><option>5</option><option>6</option><option>7</option><option selected>8</option><option>9</option><option>10</option><option>11</option><option>12</option></select></label>
+        <div class="btn-row"><button class="btn btn-primary" type="button" id="copy-series">시리즈 지시문 복사</button></div>
+        <label class="field full">AI 답 붙여넣기 — 연재표<textarea name="sanswer" rows="4" maxlength="60000"></textarea></label>
+        <div class="btn-row">
+          <button class="btn" type="button" id="read-series">연재표 불러오기</button>
+          <button class="btn" type="button" id="save-series">연재표 저장</button>
+          <label class="btn btn-file">연재표 열기<input type="file" id="open-series" accept=".json,application/json" class="sr-only"></label>
+        </div>
+        <p class="muted" id="series-msg" aria-live="polite"></p>
+        <div id="series-out"></div>
+        <div id="episode-box" hidden>
+          <p class="episode-head" id="episode-head"></p>
+          <label class="field full">이 회차 카드 몇 장? <select name="ecount"><option>3</option><option>4</option><option>5</option><option>6</option><option selected>7</option></select></label>
+          <div class="btn-row">
+            <button class="btn btn-primary" type="button" id="copy-episode">이 회차 지시문 복사</button>
+            <button class="btn" type="button" id="toggle-done">완료 표시</button>
+          </div>
+          <label class="field full">AI 답 붙여넣기 — 이 회차 카드<textarea name="eanswer" rows="4" maxlength="60000"></textarea></label>
+          <div class="btn-row"><button class="btn" type="button" id="read-episode">카드 불러오기</button></div>
+          <p class="muted" id="episode-msg" aria-live="polite"></p>
+        </div>
+      </fieldset>
+      <fieldset id="single-box" hidden><legend>한 편 만들기 — 전략 짜기 <small>(선택) 내가 쓰는 AI에게 타깃·앵글·카드 문구를 받아 와요. 이 도구는 AI에 연결하지 않아 API 키가 필요 없어요 — AI 쪽 가입·무료 한도·요금은 그 서비스 기준이에요</small></legend>
+        <label class="field full">주제 <small>예: 주말 반찬 예약 픽업, 새로 나온 원두 소개</small><input name="topic" maxlength="80" autocomplete="off"></label>
+        <label class="field full">원문 <small>(선택) 블로그 글·상품 설명·메모 — 붙여 넣으면 이 안의 사실로만 써 달라고 해요. 6,000자까지</small><textarea name="source" rows="4" maxlength="6000"></textarea></label>
+        <label class="field full">앵글마다 카드 몇 장? <select name="count"><option>3</option><option>4</option><option>5</option><option>6</option><option selected>7</option></select></label>
+        <div class="btn-row"><button class="btn btn-primary" type="button" id="copy-prompt">지시문 복사</button></div>
+        <p class="muted">복사한 지시문을 챗GPT·클로드·제미나이 등 쓰고 있는 AI 대화창에 붙여 넣고, 받은 답을 통째로 아래 칸에 붙여 넣으세요. 앞뒤 설명이 붙어 있어도 괜찮아요.</p>
+        <label class="field full">AI 답 붙여넣기 <small>"검색 키워드"는 AI의 추측이에요 — 실제 검색량은 확인하지 않았어요</small><textarea name="answer" rows="4" maxlength="60000"></textarea></label>
+        <div class="btn-row"><button class="btn" type="button" id="read-answer">답 불러오기</button></div>
+        <p class="muted" id="plan-msg" aria-live="polite"></p>
+        <div id="plan-out"></div>
+      </fieldset>
+      <fieldset><legend>장 <small>한 세트에 최대 7장 — 번호를 누르면 그 장을 고쳐요</small></legend>
+        <div class="tabs" id="cards"></div>
+        <div class="btn-row">
+          <button class="btn btn-small" type="button" id="add">장 추가</button>
+          <button class="btn btn-small" type="button" id="move-prev">← 순서 앞으로</button>
+          <button class="btn btn-small" type="button" id="move-next">순서 뒤로 →</button>
+          <button class="btn btn-small" type="button" id="remove">이 장 삭제</button>
+        </div>
+        <p class="muted" id="set-note" aria-live="polite"></p>
+      </fieldset>
+      <fieldset><legend>이 장의 유형 <small>고르면 본문 칸 안내가 바뀌어요</small></legend><div class="chips" id="types" role="group"></div></fieldset>
+      <label class="field">꼬리표 <small>(선택) 카드 맨 위 작은 글. 예: 오늘의 팁, 사장님 노트</small><input name="kicker" maxlength="20" autocomplete="off"></label>
+      <label class="field"><span id="title-label">제목</span><input name="title" maxlength="40" autocomplete="off"></label>
+      <label class="field">부제 <small>(선택, 인용형에는 안 들어가요)</small><input name="sub" maxlength="60" autocomplete="off"></label>
+      <label class="field"><span id="body-label">본문</span> <small id="body-hint"></small><textarea name="body" rows="5" maxlength="2000"></textarea></label>
+      <p class="muted" id="fitnote" aria-live="polite"></p>
+      <fieldset><legend>이 장 글자 꾸미기 <small>꾸밀 글을 고른 뒤 크기·굵기·색을 눌러요. 넘치면 글자를 줄이는 장치는 그대로 돌아요</small></legend>
+        <div class="chips" id="layers" role="group" aria-label="꾸밀 글"></div>
+        <div class="chips" id="lsizes" role="group" aria-label="글자 크기"></div>
+        <div class="chips" id="lweights" role="group" aria-label="굵기"></div>
+        <div class="chips" id="lcolors" role="group" aria-label="색"></div>
+        <div class="chips" id="lpos" role="group" aria-label="글 덩어리 세로 위치"></div>
+        <div class="btn-row"><button class="btn btn-small" type="button" id="style-reset">이 장 꾸미기 되돌리기</button></div>
+      </fieldset>
+      <fieldset><legend>세트 공통 — 바닥 <small>(선택) 가게 카드가 있으면 채워져요</small></legend>
+        <div class="row2 full">
+          <label class="field">가게 이름<input name="brand" maxlength="30" autocomplete="off"></label>
+          <label class="field">채널·연락처 <small>예: @골목카페, 02-000-0000</small><input name="handle" maxlength="40" autocomplete="off"></label>
+        </div>
+        <label class="field full">로고 이미지 <small>(선택, 10MB까지) 이 기기에서만 그려요</small><input type="file" name="logo" accept="image/*"></label>
+      </fieldset>
+      <fieldset><legend>세트 공통 — 색</legend><div class="chips" id="themes" role="group"></div></fieldset>
+      <fieldset><legend>세트 공통 — 분위기</legend><div class="chips" id="tones" role="group"></div></fieldset>
+      <fieldset><legend>세트 공통 — 크기</legend><div class="chips" id="sizes" role="group"></div></fieldset>
+      <fieldset><legend>광고 표현 점검 기준 <small>음식·식품이면 효능·'무'·원산지 표현도 봐요. 가게 카드가 있으면 업종대로 골라져요</small></legend><div class="chips" id="kinds" role="group"></div></fieldset>
+      <p class="muted" id="adhits" aria-live="polite"></p>
+      <div class="btn-row">
+        <button class="btn btn-primary" type="button" id="save">이 장 저장</button>
+        <button class="btn btn-primary" type="button" id="save-all">전부 저장</button>
+        <button class="btn btn-primary" type="button" id="save-zip">ZIP 묶음 저장</button>
+        <button class="btn" type="button" id="save-record">제작 기록 저장(엑셀)</button>
+        <button class="btn" type="button" id="copy">캡션 복사</button>
+        <button class="btn" type="button" id="example">예시로 채우기</button>
+        <button class="btn" type="button" id="save-work">작업 파일 저장</button>
+        <label class="btn btn-file">작업 파일 열기<input type="file" id="open-work" accept=".json,application/json" class="sr-only"></label>
+      </div>
+      <p class="muted" id="msg" aria-live="polite"></p>
+    </form>
+    <div class="preview"><canvas id="card" role="img" aria-label="카드뉴스 미리보기" width="1080" height="1080"></canvas><p class="muted page-info" id="page-info"></p></div>
+  </div>
+  <aside class="notice">카드 한 장에는 말하고 싶은 것 하나만 담으세요. 첫 장은 손님이 얻는 것(결과)으로, 목록은 3~5줄에 한 줄 20자 안팎이 읽기 좋아요. 숫자·인증·후기는 사실만, 기준일과 함께. 효능·최상급 같은 표현은 위 점검 줄과 <a href="adcheck.html">광고 문구 점검</a> 도구로 확인하세요. 저장은 1:1·4:5 비율, 폭 1080px PNG예요 — 인스타그램·카카오톡·네이버 플레이스의 권장 규격은 확인 못 했으니 각 앱 안내를 보세요. "ZIP 묶음 저장"은 모든 장과 제작 기록을 파일 하나로 내려받아요(연재 회차라면 그 회차를 완료로 표시한 연재표 파일도 들어가니, 다음엔 그 파일을 '연재표 열기'로 여세요). "전부 저장"으로 여러 장을 따로 받을 때 브라우저가 "여러 파일 다운로드 허용"을 물으면 허용하세요. 제작 기록(CSV)은 엑셀로 열리고, 여러 번 만든 기록은 한 시트에 줄을 이어 붙여 모아 두면 돼요. AI가 쓴 카드 문구는 초안이에요 — 숫자는 꼭 사실인지 보고, [확인 필요]가 붙은 장은 확인하고 표시를 지워야 이미지 저장·캡션 복사가 돼요.</aside>
+</main>
+<footer class="foot wrap">
+  <p>사장님 업무 도구함 · 계산·안내는 참고용이며 최종 판단은 전문가와 관계 기관에 확인하세요.</p>
+</footer>
+<script src="../core/profile-core.js?v=18"></script>
+<script src="../core/notice-core.js?v=18"></script>
+<script src="../core/adcheck-core.js?v=18"></script>
+<script src="../core/card-core.js?v=18"></script>
+<script src="../ui.js?v=18"></script>
+<script src="card.js?v=18"></script>
+<script src="../park-annotate.js?v=18" data-factory="sajang-toolbox" defer></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>상시 근로자 수 계산기 — 우리 가게는 5인 이상인가 | 사장님 업무 도구함</title>
+<meta name="description" content="지난 1개월 가동일별 직원 수만 넣으면 근로기준법 시행령 제7조의2대로 상시 근로자 수를 계산하고 5인 이상(취업규칙은 10인) 사업장인지 판정합니다. 가입 없이 무료.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../style.css?v=18">
+</head>
+<body>
+<a class="skip" href="#main">본문 바로가기</a>
+<header class="site-head"><a class="brand" href="../">사장님 업무 도구함</a><span class="crumb">상시 근로자 수 계산기</span></header>
+<main id="main" class="wrap narrow">
+  <h1>상시 근로자 수 계산기</h1>
+  <p class="lede">연차·해고 제한·가산수당 같은 규정은 "상시 근로자 5명 이상"부터 적용돼요. 우리 가게가 어디에 해당하는지 법이 정한 방식 그대로 계산합니다.</p>
+  <p class="privacy">입력한 숫자는 이 기기 안에서만 계산되고 어디에도 보내지 않아요.</p>
+  <form id="f-head" class="form" novalidate>
+    <fieldset><legend>무엇을 판단하려고 하나요?</legend>
+      <label><input type="radio" name="threshold" value="5" checked> 5명 기준 (연차·해고 제한·가산수당 등 대부분의 규정)</label>
+      <label><input type="radio" name="threshold" value="10"> 10명 기준 (취업규칙 작성·신고 의무)</label></fieldset>
+    <label class="field">가동일별 근로자 수 <small>판단하려는 날 전 1개월 동안, 영업한 날마다 그날 일한 직원 수를 순서대로. 쉼표나 줄바꿈으로 나눠 적어요 (예: 5, 5, 4, 6 …). 사장님 본인은 빼고, 아르바이트·기간제·단시간 직원은 모두 넣어요. 파견 직원은 빼요.</small>
+      <textarea name="daily" rows="4" placeholder="5, 5, 5, 4, 4, 6, 6, 5, 5, 5, 4, 5, 5, 5, 5, 6, 5, 4, 5, 5, 5, 5, 4, 5, 5, 5"></textarea></label>
+    <button class="btn btn-primary" type="submit">계산하기</button>
+  </form>
+  <div class="result" id="r-head" aria-live="polite" hidden></div>
+  <aside class="notice">"가동일"은 실제로 영업(가동)한 날이에요. 사업을 시작한 지 1개월이 안 됐으면 시작한 날부터 계산해요. 동거하는 친족만 일하는 가게는 근로기준법 적용 대상이 아니에요. 최종 판단은 노무사나 고용노동부 고객상담센터(국번 없이 1350)에 확인하세요.</aside>
+</main>
+<footer class="foot wrap">
+  <p>사장님 업무 도구함 · 계산·안내는 참고용이며 최종 판단은 전문가와 관계 기관에 확인하세요.</p>
+</footer>
+<script src="../core/toolbox-core.js?v=18"></script>
+<script src="../core/headcount-core.js?v=18"></script>
+<script src="../ui.js?v=18"></script>
+<script src="headcount.js?v=18"></script>
+<script src="../park-annotate.js?v=18" data-factory="sajang-toolbox" defer></script>
+</body>
+</html>

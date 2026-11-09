@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>주간 근무표 만들기 — 주 52시간·휴게·주휴 자동 확인 | 사장님 업무 도구함</title>
+<meta name="description" content="직원별로 요일 근무시간을 적으면 주 근로시간·연장·야간을 계산하고 주 52시간 초과·휴게시간 부족·주휴 대상 여부를 근로기준법 조항과 함께 알려 줍니다. 인쇄·CSV 복사. 가입 없이 무료.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../style.css?v=18">
+<style media="print">@page{size:A4 landscape;margin:12mm}</style>
+</head>
+<body>
+<a class="skip" href="#main">본문 바로가기</a>
+<header class="site-head"><a class="brand" href="../">사장님 업무 도구함</a><span class="crumb">주간 근무표</span></header>
+<main id="main" class="wrap print-doc">
+  <h1>주간 근무표</h1>
+  <p class="lede">직원별로 요일 칸에 근무시간을 적으면 주 근로시간·연장·야간을 계산하고, 주 52시간 초과·휴게 부족·주휴 대상을 알려 드려요.</p>
+  <p class="privacy">근무표는 이 기기 안에서만 계산돼요. 새로고침해도 남도록 이 기기(브라우저)에만 임시 저장합니다.</p>
+  <form id="f-roster" class="form roster-form" novalidate>
+    <p class="sub">칸에 <b>시작-끝/휴게(분)</b> 형식으로 적어요. 예: <code>9:00-18:00/60</code>, 야근은 <code>22:00-06:00/30</code>, 쉬는 날은 비워 두세요.</p>
+    <fieldset class="sub"><legend>상시 근로자가 5명 이상인가요? <small>모르면 상시 근로자 수 계산기로 — 5명 미만이면 연장·52시간 규정이 적용되지 않아요</small></legend>
+      <label><input type="radio" name="fivePlus" value="1" checked> 예</label>
+      <label><input type="radio" name="fivePlus" value="0"> 아니요</label></fieldset>
+    <div class="table-wrap">
+      <table class="roster" id="roster">
+        <thead><tr><th scope="col">이름</th><th scope="col">월</th><th scope="col">화</th><th scope="col">수</th><th scope="col">목</th><th scope="col">금</th><th scope="col">토</th><th scope="col">일</th><th scope="col">주 근로</th><th scope="col">연장</th><th scope="col">야간</th><th scope="col">주휴</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+    <div class="btn-row">
+      <button class="btn" type="button" id="add">직원 추가</button>
+      <button class="btn" type="button" id="copy">CSV로 복사</button>
+      <button class="btn" type="button" id="print">인쇄</button>
+      <button class="btn" type="button" id="clear">모두 지우기</button>
+    </div>
+  </form>
+  <div class="result" id="r-roster" aria-live="polite" hidden></div>
+  <aside class="notice">연장은 1일 8시간 또는 1주 40시간을 넘는 시간 중 큰 쪽으로 계산했고, 야간은 22시~06시 사이 시간이되 휴게를 뺀 근로시간을 넘지 않게 잘랐고(휴게 위치를 모르므로), 주휴 대상은 이 주 근로시간 15시간 기준(법은 4주 평균)이에요. 탄력·선택 근로시간제를 쓰면 다르게 계산해야 해요. 최종 판단은 노무사나 고용노동부 고객상담센터(국번 없이 1350)에 확인하세요.</aside>
+</main>
+<footer class="foot wrap">
+  <p>사장님 업무 도구함 · 계산·안내는 참고용이며 최종 판단은 전문가와 관계 기관에 확인하세요.</p>
+</footer>
+<script src="../core/toolbox-core.js?v=18"></script>
+<script src="../core/roster-core.js?v=18"></script>
+<script src="../ui.js?v=18"></script>
+<script src="roster.js?v=18"></script>
+<script src="../park-annotate.js?v=18" data-factory="sajang-toolbox" defer></script>
+</body>
+</html>

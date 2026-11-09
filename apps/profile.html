@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>우리 가게 카드 — 한 번 채우면 홍보 도구가 내 것이 됩니다 | 사장님 업무 도구함</title>
+<meta name="description" content="상호·대표 상품·주요 고객·고객의 고민·우리만의 방식·증거 13칸을 채우면 한 줄 소개, 상세페이지, 홍보 문자 도구가 자동으로 채워지고, AI에 붙여넣는 가게 카드도 복사됩니다. 이 기기에만 저장. 가입 없이 무료.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../style.css?v=18">
+</head>
+<body>
+<a class="skip" href="#main">본문 바로가기</a>
+<header class="site-head"><a class="brand" href="../">사장님 업무 도구함</a><span class="crumb">우리 가게 카드</span></header>
+<main id="main" class="wrap narrow">
+  <h1>우리 가게 카드</h1>
+  <p class="lede">13칸을 아는 만큼 채워 두세요. 팔리는 한 줄, 상세페이지 조립기, 홍보 문자 도구가 이 카드를 읽어 칸을 미리 채우고, AI(Claude·ChatGPT)에 붙여넣을 카드도 만들어 드려요.</p>
+  <p class="privacy">이 카드는 이 기기(브라우저)에만 저장되고 어디에도 보내지 않아요. 상호·상품·문의처 같은 공개 정보만 적고, 원가·레시피·고객 개인정보는 적지 마세요.</p>
+  <form id="f-profile" class="form" novalidate>
+    <p class="muted" id="status" aria-live="polite"></p>
+    <div id="fields"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" type="button" id="copy">AI에 붙여넣는 카드 복사</button>
+      <button class="btn" type="button" id="example">가상 예시로 채우기</button>
+      <button class="btn" type="button" id="clear">이 기기에서 지우기</button>
+    </div>
+  </form>
+  <div class="result" id="next">
+    <h2>다음으로</h2>
+    <ul class="next-links">
+      <li><a href="story.html">팔리는 한 줄·가게 이야기</a> — 고객의 문제에서 시작하는 한 줄 정의문과 헤드라인 5안</li>
+      <li><a href="page.html">소개·상세페이지 조립기</a> — 블록을 조립해 상세페이지를 이미지로</li>
+      <li><a href="adsms.html">홍보 문자·카톡 만들기</a> — (광고) 표시·수신거부까지 규칙대로</li>
+      <li><a href="notice.html">가게 안내문 만들기</a> — 휴무·이벤트 안내 이미지</li>
+    </ul>
+  </div>
+  <aside class="notice">AI에 붙여넣을 때: Claude·ChatGPT의 "프로젝트" 지침 칸에 이 카드를 넣어 두면 대화마다 가게 설명을 반복하지 않아도 돼요. 원가·배합비·손님 개인정보는 카드에도, AI에도 넣지 마세요 — 무료 AI는 입력 내용이 학습 자료로 쓰일 수 있어요.</aside>
+</main>
+<footer class="foot wrap">
+  <p>사장님 업무 도구함 · 계산·안내는 참고용이며 최종 판단은 전문가와 관계 기관에 확인하세요.</p>
+</footer>
+<script src="../core/profile-core.js?v=18"></script>
+<script src="../ui.js?v=18"></script>
+<script src="profile.js?v=18"></script>
+<script src="../park-annotate.js?v=18" data-factory="sajang-toolbox" defer></script>
+</body>
+</html>

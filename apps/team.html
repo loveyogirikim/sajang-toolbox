@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>조 편성·자리 배치 — 워크숍 조, 회식 자리 | 사장님 업무 도구함</title>
+<meta name="description" content="명단을 붙여 넣고 떨어뜨리기·묶기·부서 섞기 조건을 정하면 조 편성이나 자리표를 뽑아 줍니다. 가입 없이 무료, 명단은 기기 밖으로 나가지 않습니다.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../style.css?v=18">
+</head>
+<body>
+<a class="skip" href="#main">본문 바로가기</a>
+<header class="site-head"><a class="brand" href="../">사장님 업무 도구함</a><span class="crumb">조 편성·자리 배치</span></header>
+<main id="main" class="wrap narrow">
+  <h1>조 편성·자리 배치</h1>
+  <p class="lede">명단을 붙여 넣고 조건을 정하면 조나 자리표를 뽑아 드려요.</p>
+  <p class="privacy">명단은 이 기기 안에서만 쓰이고 어디에도 보내지 않아요.</p>
+  <form id="f-team" class="form" novalidate>
+    <fieldset><legend>무엇을 뽑을까요?</legend>
+      <label><input type="radio" name="mode" value="teams" checked> 조 편성</label>
+      <label><input type="radio" name="mode" value="seats"> 자리 배치</label></fieldset>
+    <label class="field">명단 <small>한 줄에 한 명. 부서·성별 등을 쉼표 뒤에 적으면 고르게 섞을 수 있어요 (예: 홍길동, 영업)</small>
+      <textarea name="roster" rows="8"></textarea></label>
+    <div id="opt-teams"><label class="field">조 수<input type="number" name="teamCount" min="2" value="3" inputmode="numeric"></label></div>
+    <div id="opt-seats" class="row2" hidden>
+      <label class="field">줄 수 <small>앞에서 뒤로</small><input type="number" name="rows" min="1" max="20" value="4" inputmode="numeric"></label>
+      <label class="field">한 줄 자리 수<input type="number" name="cols" min="1" max="20" value="6" inputmode="numeric"></label>
+    </div>
+    <label class="field"><span id="apart-label">다른 조로 떨어뜨릴 두 사람</span> <small>한 줄에 두 명, 쉼표로 나눠서 (선택)</small><textarea name="apart" rows="3"></textarea></label>
+    <label class="field"><span id="together-label">같은 조로 묶을 두 사람</span> <small>한 줄에 두 명, 쉼표로 나눠서 (선택)</small><textarea name="together" rows="3"></textarea></label>
+    <label class="check" id="balance-row"><input type="checkbox" name="balance" checked> 쉼표 뒤 꼬리표(부서 등)가 조마다 고르게 섞이게</label>
+    <button class="btn btn-primary" type="submit">뽑기</button>
+  </form>
+  <div class="result" id="r-team" aria-live="polite" hidden></div>
+  <div class="btn-row" id="after" hidden>
+    <button class="btn" type="button" id="again">다시 뽑기</button>
+    <button class="btn" type="button" id="copy">글로 복사</button>
+    <button class="btn" type="button" id="print">인쇄</button>
+  </div>
+</main>
+<footer class="foot wrap">
+  <p>사장님 업무 도구함 · 계산·안내는 참고용이며 최종 판단은 전문가와 관계 기관에 확인하세요.</p>
+</footer>
+<script src="../core/team-core.js?v=18"></script>
+<script src="../ui.js?v=18"></script>
+<script src="team.js?v=18"></script>
+<script src="../park-annotate.js?v=18" data-factory="sajang-toolbox" defer></script>
+</body>
+</html>

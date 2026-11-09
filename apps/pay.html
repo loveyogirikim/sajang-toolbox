@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>노무 계산기 — 연차·퇴직금·주휴수당 | 사장님 업무 도구함</title>
+<meta name="description" content="입사일과 임금만 넣으면 연차 유급휴가 일수, 퇴직금, 주휴수당을 근로기준법 조항과 함께 계산합니다. 가입 없이 무료, 입력값은 기기 밖으로 나가지 않습니다.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../style.css?v=18">
+</head>
+<body>
+<a class="skip" href="#main">본문 바로가기</a>
+<header class="site-head"><a class="brand" href="../">사장님 업무 도구함</a><span class="crumb">노무 계산기</span></header>
+<main id="main" class="wrap narrow">
+  <h1>노무 계산기</h1>
+  <p class="lede">연차·퇴직금·주휴수당을 근거 조항과 함께 계산합니다.</p>
+  <p class="privacy">입력한 숫자는 이 기기 안에서만 계산되고 어디에도 보내지 않아요.</p>
+  <div class="tabs" role="group" aria-label="계산 종류">
+    <button type="button" id="tab-leave" aria-pressed="true">연차</button>
+    <button type="button" id="tab-severance" aria-pressed="false">퇴직금</button>
+    <button type="button" id="tab-weekly" aria-pressed="false">주휴수당</button>
+  </div>
+
+  <section id="p-leave" aria-labelledby="tab-leave">
+    <form id="f-leave" class="form" novalidate>
+      <div class="row2">
+        <label class="field">입사일<input type="date" name="hireDate" required></label>
+        <label class="field">기준일 <small>이 날짜 기준으로 계산해요</small><input type="date" name="baseDate" required></label>
+      </div>
+      <fieldset><legend>상시 근로자가 5명 이상인가요?</legend>
+        <label><input type="radio" name="fivePlus" value="1" checked> 예</label>
+        <label><input type="radio" name="fivePlus" value="0"> 아니요</label></fieldset>
+      <label class="field">1주 소정근로시간 <small>계약서에 정한 1주 근로시간(4주 평균)</small><input type="text" name="weeklyHours" inputmode="decimal" value="40" autocomplete="off"></label>
+      <fieldset><legend>지난 1년 출근율이 80% 이상인가요? <small>입사 1년 미만이면 상관없어요</small></legend>
+        <label><input type="radio" name="attendance80" value="1" checked> 예</label>
+        <label><input type="radio" name="attendance80" value="0"> 아니요</label></fieldset>
+      <button class="btn btn-primary" type="submit">연차 계산하기</button>
+    </form>
+    <div class="result" id="r-leave" aria-live="polite" hidden></div>
+  </section>
+
+  <section id="p-severance" aria-labelledby="tab-severance" hidden>
+    <form id="f-severance" class="form" novalidate>
+      <div class="row2">
+        <label class="field">입사일<input type="date" name="hireDate" required></label>
+        <label class="field">퇴직일 <small>마지막으로 일한 날의 다음 날</small><input type="date" name="retireDate" required></label>
+      </div>
+      <label class="field">퇴직 전 3개월 동안 받은 임금 총액 <small>세금 떼기 전 금액 — 예: 9,200,000 또는 920만</small><input type="text" name="wages3m" inputmode="numeric" autocomplete="off"></label>
+      <label class="field">1주 소정근로시간 <small>4주 평균</small><input type="text" name="weeklyHours" inputmode="decimal" value="40" autocomplete="off"></label>
+      <button class="btn btn-primary" type="submit">퇴직금 계산하기</button>
+    </form>
+    <div class="result" id="r-severance" aria-live="polite" hidden></div>
+  </section>
+
+  <section id="p-weekly" aria-labelledby="tab-weekly" hidden>
+    <form id="f-weekly" class="form" novalidate>
+      <div class="row2">
+        <label class="field">시급 <small>예: 10,320</small><input type="text" name="hourly" inputmode="numeric" autocomplete="off"></label>
+        <label class="field">1주 소정근로시간 <small>계약서에 정한 시간</small><input type="text" name="weeklyHours" inputmode="decimal" value="20" autocomplete="off"></label>
+      </div>
+      <label class="field">기준일 <small>이 날짜에 적용되는 최저임금과 비교해요</small><input type="date" name="date"></label>
+      <button class="btn btn-primary" type="submit">주휴수당 계산하기</button>
+    </form>
+    <div class="result" id="r-weekly" aria-live="polite" hidden></div>
+  </section>
+
+  <aside class="notice">법 조문을 바탕으로 한 참고용 계산입니다. 실제 지급액은 근로계약·취업규칙·상여금 등에 따라 달라질 수 있으니, 최종 판단은 노무사나 고용노동부 고객상담센터(국번 없이 1350)에 확인하세요. 조문 확인일: <span id="law-date">-</span></aside>
+</main>
+<footer class="foot wrap">
+  <p>사장님 업무 도구함 · 계산·안내는 참고용이며 최종 판단은 전문가와 관계 기관에 확인하세요.</p>
+</footer>
+<script src="../core/toolbox-core.js?v=18"></script>
+<script src="../core/pay-core.js?v=18"></script>
+<script src="../ui.js?v=18"></script>
+<script src="pay.js?v=18"></script>
+<script src="../park-annotate.js?v=18" data-factory="sajang-toolbox" defer></script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>직원 복무 길잡이 — 출산휴가·육아휴직·퇴직 | 사장님 업무 도구함</title>
+<meta name="description" content="직원이 휴가·휴직을 신청하거나 그만둘 때 사장님이 챙길 요건·기한·서류를 법 조문 원문과 함께 정리했습니다. 가입 없이 무료.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../style.css?v=18">
+</head>
+<body>
+<a class="skip" href="#main">본문 바로가기</a>
+<header class="site-head"><a class="brand" href="../">사장님 업무 도구함</a><span class="crumb">직원 복무 길잡이</span></header>
+<main id="main" class="wrap">
+  <h1>직원 복무 길잡이</h1>
+  <p class="lede">직원이 휴가·휴직을 신청하거나 그만둘 때, 챙길 요건·기한·서류를 법 조문과 함께 보여 드려요.</p>
+  <p class="privacy">검색어는 이 기기 안에서만 쓰이고 어디에도 보내지 않아요.</p>
+  <form class="search" role="search" id="search-form">
+    <label for="q" class="sr-only">항목 찾기</label>
+    <input id="q" type="search" placeholder="예: 아이가 태어났어요, 육아휴직" autocomplete="off">
+  </form>
+  <ul class="chips" id="chips" aria-label="자주 찾는 상황"></ul>
+  <div class="guide">
+    <nav aria-label="항목 목록"><ul class="guide-list" id="list"></ul><p class="empty" id="empty" hidden>맞는 항목이 없어요. 다른 말로 찾아보세요.</p></nav>
+    <article class="detail" id="detail" aria-live="polite"></article>
+  </div>
+  <aside class="notice">법 조문을 쉽게 풀어 정리한 참고 자료입니다. 회사 취업규칙에 따로 정한 내용이 있을 수 있고, 고용보험 급여 금액·신청은 고용24에서 확인하세요. 최종 판단은 노무사나 고용노동부 고객상담센터(국번 없이 1350)에 확인하세요. 조문 확인일: <span id="checked">-</span></aside>
+</main>
+<footer class="foot wrap">
+  <p>사장님 업무 도구함 · 계산·안내는 참고용이며 최종 판단은 전문가와 관계 기관에 확인하세요.</p>
+</footer>
+<script src="../core/toolbox-core.js?v=18"></script>
+<script src="../ui.js?v=18"></script>
+<script src="leave.js?v=18"></script>
+<script src="../park-annotate.js?v=18" data-factory="sajang-toolbox" defer></script>
+</body>
+</html>

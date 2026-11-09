@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>할인·이벤트 손익 계산기 — 몇 개 더 팔아야 본전인가 | 사장님 업무 도구함</title>
+<meta name="description" content="판매가·원가·지금 판매량과 할인 방식(정률·정액·1+1·사은품)을 넣으면 할인 뒤 개당 이익과 본전이 되는 판매량 증가율을 계산하고, 방식 4가지를 나란히 비교합니다. 계산식 공개. 가입 없이 무료.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../style.css?v=18">
+</head>
+<body>
+<a class="skip" href="#main">본문 바로가기</a>
+<header class="site-head"><a class="brand" href="../">사장님 업무 도구함</a><span class="crumb">할인·이벤트 손익 계산기</span></header>
+<main id="main" class="wrap narrow">
+  <h1>할인·이벤트 손익 계산기</h1>
+  <p class="lede">"10% 할인하면 몇 개 더 팔아야 본전이지?" — 판매가·원가·지금 파는 수량만 넣으면 할인 뒤 개당 이익과 본전 판매량을 계산하고, 정률·정액·1+1·사은품을 나란히 비교해요.</p>
+  <p class="privacy">입력한 숫자는 이 기기 안에서만 계산되고 어디에도 보내지 않아요. 계산식을 그대로 보여 드리니 검산해 보세요.</p>
+  <form id="f-promo" class="form" novalidate>
+    <div class="row3">
+      <label class="field">판매가 (1개)<input name="price" inputmode="numeric" placeholder="10,000"></label>
+      <label class="field" id="cost-field">원가 (1개) <small>재료비+포장 등 직접 드는 돈</small><input name="cost" inputmode="numeric" placeholder="6,000"></label>
+      <label class="field">지금 한 달 판매량 (개)<input name="qty" inputmode="numeric" placeholder="100"></label>
+    </div>
+    <label class="check"><input type="checkbox" name="useRate"> 원가 대신 마진율(%)로 넣을래요</label>
+    <label class="field" id="rate-field" hidden>마진율 (%) <small>(판매가 − 원가) ÷ 판매가</small><input name="marginRate" inputmode="numeric" placeholder="40"></label>
+    <fieldset><legend>할인 방식</legend><div class="chips" id="kinds" role="group"></div></fieldset>
+    <label class="field" id="value-field"><span id="value-label">할인율 (%)</span><input name="value" inputmode="numeric" placeholder="10"></label>
+    <button class="btn btn-primary" type="submit">계산하기</button>
+  </form>
+  <div class="result" id="r-promo" aria-live="polite" hidden></div>
+  <aside class="notice">개당 이익은 판매가에서 원가(재료·포장처럼 한 개 팔 때마다 드는 돈)를 뺀 값이에요. 임대료·인건비 같은 고정비는 빼지 않았으니, 본전 판매량은 "지금 이익을 지키는 수량"으로 읽으세요. 할인 표시(할인 전 가격·기간)가 사실인지는 광고 문구 점검 도구로 확인하세요.</aside>
+</main>
+<footer class="foot wrap">
+  <p>사장님 업무 도구함 · 계산·안내는 참고용이며 최종 판단은 전문가와 관계 기관에 확인하세요.</p>
+</footer>
+<script src="../core/toolbox-core.js?v=18"></script>
+<script src="../core/promo-core.js?v=18"></script>
+<script src="../ui.js?v=18"></script>
+<script src="promo.js?v=18"></script>
+<script src="../park-annotate.js?v=18" data-factory="sajang-toolbox" defer></script>
+</body>
+</html>

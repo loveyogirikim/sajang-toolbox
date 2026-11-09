@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>홍보 문자·카톡 만들기 — (광고) 표시·수신거부 규칙대로 | 사장님 업무 도구함</title>
+<meta name="description" content="신메뉴·할인·재방문 감사·휴무·명절 인사 문자를 칸만 채워 만들면 (광고) 표시, 전송자 이름, 무료 수신거부 안내가 정보통신망법 규칙대로 붙고, SMS·LMS 바이트를 세어 줍니다. 발송 전 점검 4가지. 가입 없이 무료.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../style.css?v=18">
+</head>
+<body>
+<a class="skip" href="#main">본문 바로가기</a>
+<header class="site-head"><a class="brand" href="../">사장님 업무 도구함</a><span class="crumb">홍보 문자·카톡 만들기</span></header>
+<main id="main" class="wrap">
+  <h1>홍보 문자·카톡 만들기</h1>
+  <p class="lede">광고 문자는 맨 앞에 (광고), 보내는 사람 이름과 연락처, 맨 끝에 무료 수신거부 방법이 있어야 해요. 칸만 채우면 규칙대로 붙이고 SMS·LMS 길이를 세어 드려요.</p>
+  <p class="privacy">적은 내용은 이 기기 안에서만 조립되고 어디에도 보내지 않아요. 실제 발송은 쓰시는 문자 발송 서비스·카카오톡 채널에서 직접 하세요(이 도구는 발송하지 않아요).</p>
+  <div id="pbar"></div>
+  <div class="maker">
+    <form id="f-sms" class="form" novalidate>
+      <fieldset><legend>무슨 문자인가요?</legend><div class="chips" id="templates" role="group"></div></fieldset>
+      <div class="row2 full">
+        <label class="field">보내는 가게 이름<input name="name" maxlength="40" autocomplete="off"></label>
+        <label class="field">연락처 <small>전화번호 또는 주소 — 카톡 채널 이름만으로는 안 돼요</small><input name="contact" maxlength="60" autocomplete="off" placeholder="02-000-0000"></label>
+      </div>
+      <label class="field">상품·서비스<input name="product" maxlength="60" autocomplete="off"></label>
+      <label class="field">구성·가격 <small>(선택)</small><input name="offer" maxlength="80" autocomplete="off"></label>
+      <label class="field">기간·날짜 <small>(선택)</small><input name="date" maxlength="60" autocomplete="off" placeholder="예: 10월 15일까지"></label>
+      <label class="field">한 줄 더 <small>(선택) 혜택·안내</small><input name="detail" maxlength="120" autocomplete="off"></label>
+      <div id="ad-only">
+        <label class="field">무료 수신거부 번호 <small>080 번호 — 문자 발송 서비스에서 받아요</small><input name="reject" maxlength="30" autocomplete="off" placeholder="080-000-0000"></label>
+        <fieldset><legend>받는 분의 광고 수신 동의를 받았나요?</legend>
+          <label><input type="radio" name="consent" value="unknown" checked> 모르겠어요</label>
+          <label><input type="radio" name="consent" value="yes"> 예</label>
+          <label><input type="radio" name="consent" value="no"> 아니요</label></fieldset>
+        <label class="check"><input type="checkbox" name="recent"> 거래하면서 손님에게 직접 받은 연락처로, 거래가 끝난 지 6개월 안에, 그때 산 것과 같은 종류의 상품만 보내요</label>
+        <div class="row2 full">
+          <label class="field">보낼 시각<select name="hour" id="hour"></select></label>
+          <label class="check" id="night-wrap"><input type="checkbox" name="nightConsent"> 밤 시간 수신에 따로 동의받았어요</label>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary" type="button" id="copy">문자 복사</button>
+      </div>
+    </form>
+    <div class="result" id="out" aria-live="polite"></div>
+  </div>
+  <aside class="notice">바이트 기준: 한글 2바이트, 영문·숫자·기호 1바이트로 세었어요. SMS 90바이트·LMS 2,000바이트는 흔히 쓰는 기준이고 발송 업체마다 조금 다를 수 있어요(확인 못 함). 카카오톡 채널 메시지는 글자 수를 참고하고 한도와 수신거부 방식은 카카오 안내를 확인하세요. 수신 동의·거부 명단 관리와 080 번호는 전송자격인증을 받은 문자 발송 서비스가 도와줘요. 어떤 문자가 '광고'인지의 세부 범위(방송통신위원회·KISA 안내서)는 여기 없어 확인 못 함 — 홍보 문구가 한 줄이라도 섞이면 광고로 보고 (광고)를 붙이는 쪽이 안전해요.</aside>
+</main>
+<footer class="foot wrap">
+  <p>사장님 업무 도구함 · 계산·안내는 참고용이며 최종 판단은 전문가와 관계 기관에 확인하세요.</p>
+</footer>
+<script src="../core/toolbox-core.js?v=18"></script>
+<script src="../core/profile-core.js?v=18"></script>
+<script src="../core/adsms-core.js?v=18"></script>
+<script src="../ui.js?v=18"></script>
+<script src="adsms.js?v=18"></script>
+<script src="../park-annotate.js?v=18" data-factory="sajang-toolbox" defer></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>광고 문구 점검 — 걸릴 수 있는 표현을 조문과 함께 | 사장님 업무 도구함</title>
+<meta name="description" content="상세페이지·인스타·전단 문구를 붙여 넣으면 질병 효능·최상급·무첨가·마감 임박 같은 위험 표현을 찾아 표시광고법·식품표시광고법·전자상거래법 조문과 고쳐 쓰기 제안을 보여 줍니다. 업종별 점검표 포함. 가입 없이 무료.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../style.css?v=18">
+</head>
+<body>
+<a class="skip" href="#main">본문 바로가기</a>
+<header class="site-head"><a class="brand" href="../">사장님 업무 도구함</a><span class="crumb">광고 문구 점검</span></header>
+<main id="main" class="wrap narrow">
+  <h1>광고 문구 점검</h1>
+  <p class="lede">올리기 전에 한 번 걸러요. "당뇨에 좋은", "국내 1위", "무첨가", "오늘만"처럼 법에 걸릴 수 있는 표현을 찾아 왜 위험한지, 어떻게 고칠지, 어느 조항인지 함께 보여 드려요.</p>
+  <p class="privacy">붙여 넣은 글은 이 기기 안에서만 검사하고 어디에도 보내지 않아요. 판정은 참고용이에요 — 표현이 걸려도 "위법"이 아니라 "확인해 보세요"라는 뜻이에요.</p>
+  <form id="f-check" class="form" novalidate>
+    <fieldset><legend>무엇을 파나요?</legend>
+      <label><input type="radio" name="kind" value="general" checked> 일반 상품·서비스</label>
+      <label><input type="radio" name="kind" value="food"> 식품·음식</label>
+      <label><input type="radio" name="kind" value="cosmetic"> 화장품</label></fieldset>
+    <label class="check"><input type="checkbox" name="online"> 온라인(스마트스토어·자사몰 등)으로도 팔아요</label>
+    <label class="field">점검할 문구 <small>상세페이지·인스타 캡션·전단·문자 — 한 번에 5,000자까지</small>
+      <textarea name="text" rows="8" maxlength="5000" placeholder="예: 당뇨에 좋은 저염 반찬! 국내 1위, 무첨가 100% 국내산. 오늘만 반값."></textarea></label>
+    <button class="btn btn-primary" type="submit">점검하기</button>
+  </form>
+  <div class="result" id="r-check" aria-live="polite" hidden></div>
+  <aside class="notice">이 점검은 거름망 하나일 뿐이에요. 걸린 표현이 사실이면 기준일·출처를 붙여 쓸 수 있고, 긴가민가하면 빼는 쪽이 안전해요. 건강·효능 표현을 꼭 써야 하면 식품의약품안전처 자료와 관할 지자체 위생 부서, 전문가에게 먼저 물어보세요. 세부 기준(고시)은 여기에 없어 "확인 못 함"으로 표시해요.</aside>
+</main>
+<footer class="foot wrap">
+  <p>사장님 업무 도구함 · 계산·안내는 참고용이며 최종 판단은 전문가와 관계 기관에 확인하세요.</p>
+</footer>
+<script src="../core/toolbox-core.js?v=18"></script>
+<script src="../core/adcheck-core.js?v=18"></script>
+<script src="../ui.js?v=18"></script>
+<script src="adcheck.js?v=18"></script>
+<script src="../park-annotate.js?v=18" data-factory="sajang-toolbox" defer></script>
+</body>
+</html>
