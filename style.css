@@ -74,6 +74,8 @@ h2{font-size:22px;letter-spacing:-.02em;line-height:1.35;margin:0}
 .app-kind{margin-top:auto;padding-top:8px;font-size:13px;color:var(--sub)}
 .app-kind.is-new{color:var(--brand-hi);font-weight:600}
 .empty{color:var(--sub);padding:24px 0}
+.empty-msg{color:var(--ink);font-weight:600;overflow-wrap:anywhere}
+.empty .chips{margin:12px 0 16px}
 .ask{margin:56px 0 24px;padding:28px;background:var(--brand-soft);border:1px solid var(--brand-line);border-radius:var(--radius)}
 .ask p{margin:8px 0 16px;color:var(--ink2)}
 

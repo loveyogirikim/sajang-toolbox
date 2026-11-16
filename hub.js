@@ -3,12 +3,12 @@
   "use strict";
   var T = window.ToolboxCore, U = window.UI, el = U.el, $ = U.$;
   var KIND = { "new": "이 사이트 도구", ours: "우리 회사 다른 도구" };
-  var state = { apps: [], cat: "전체", q: "" };
+  var state = { apps: [], cat: "전체", q: "", words: {}, site: null };
 
   function fields(a) { return { title: a.name, aka: a.tags, body: [a.one, a.desc, a.cat].join(" ") }; }
 
   function render() {
-    var list = T.rank(state.apps, state.q, fields).filter(function (a) { return state.cat === "전체" || a.cat === state.cat; });
+    var list = T.search(state.apps, state.q, fields, state.words).filter(function (a) { return state.cat === "전체" || a.cat === state.cat; });
     var box = $("apps");
     box.textContent = "";
     list.forEach(function (a) {
@@ -24,6 +24,13 @@
     });
     $("count").textContent = list.length + "개";
     $("empty").hidden = list.length > 0;
+    if (!list.length) {
+      // 빈손으로 끝내지 않는다 — 대표 도구와, 찾던 말을 그대로 담은 요청 메일(메일 프로그램이 여는 것, 사이트가 보내지 않는다)
+      var said = T.clip(state.q, 100);
+      $("empty-msg").textContent = "'" + said + "' — 이 말로는 맞는 도구를 못 찾았어요." + (state.cat === "전체" ? "" : " 위에서 '전체'를 누르면 다른 분야도 찾아봐요.");
+      $("empty-ask").href = "mailto:" + state.site.contact + "?subject=" + encodeURIComponent(state.site.askSubject) +
+        "&body=" + encodeURIComponent("찾으려던 말: " + said + "\n\n" + state.site.askBody);
+    }
     Array.prototype.forEach.call($("cats").children, function (t) { t.setAttribute("aria-pressed", String(t.dataset.cat === state.cat)); });
     // ponytail: 검색어를 주소에 되쓰지 않는다 — 새로고침·공유 때 서버 요청에 실리지 않게(검수 지적). 들어오는 ?q= 링크만 읽는다.
   }
@@ -46,8 +53,16 @@
 
   function search(q) { $("q").value = q; state.q = q.trim(); render(); }
 
-  function start(apps, site) {
-    state.apps = apps.apps;
+  function start(apps, site, words) {
+    state.apps = apps.apps; state.site = site; state.words = words || {};
+    (apps.starters || []).forEach(function (id) {
+      var a = state.apps.filter(function (x) { return x.id === id; })[0];
+      if (!a) return;
+      var li = el("li"), b = el("button", "chip", a.name);
+      b.type = "button";
+      b.addEventListener("click", function () { openIntro(a); });
+      li.appendChild(b); $("starters").appendChild(li);
+    });
     apps.chips.forEach(function (c) {
       var li = el("li"), b = el("button", "chip", c);
       b.type = "button";
@@ -68,10 +83,11 @@
     search(new URLSearchParams(location.search).get("q") || "");
   }
 
-  Promise.all(["data/apps.json", "data/site.json"].map(function (u) {
-    return fetch(u).then(function (r) { if (!r.ok) throw new Error(u); return r.json(); });
-  })).then(function (d) { start(d[0], d[1]); }).catch(function () {
-    var e = $("empty");
-    e.hidden = false; e.textContent = "목록을 불러오지 못했어요. 새로고침해 주세요.";
-  });
+  function load(u) { return fetch(u).then(function (r) { if (!r.ok) throw new Error(u); return r.json(); }); }
+  // 같은 말 사전은 못 불러와도 검색은 돌아가야 한다(기존 방식으로)
+  Promise.all([load("data/apps.json"), load("data/site.json"), load("data/search-words.json").catch(function () { return {}; })])
+    .then(function (d) { start(d[0], d[1], d[2]); }).catch(function () {
+      $("empty").hidden = false; $("empty-more").hidden = true;
+      $("empty-msg").textContent = "목록을 불러오지 못했어요. 새로고침해 주세요.";
+    });
 })();

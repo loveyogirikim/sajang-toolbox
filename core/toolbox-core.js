@@ -37,6 +37,46 @@
       .map(function (x) { return x.it; });
   }
 
+  // 상황 검색 — 생활 말투("야근 수당", "해고하려면")로도 찾는다 (2026-11-10, 표본은 tests/search-phrases.test.js).
+  // 점수 = 기존 score + 같은 말 사전(words.same: say가 검색어에 들어 있으면 means를 대신 찾는다)
+  //      + 낱말 꼬리 떼기(조사가 붙은 "퇴직금을"은 뒤에서 두 글자까지 줄여, 이름표 하나와 통째로 같을 때만 찾는다).
+  // ponytail: 형태소 분석 없이 한다. 꼬리 뗀 낱말은 이름표 "일부"가 아니라 "전체"와 같아야 한다 —
+  // 일부 일치를 허용했더니 "임대차 계약서"→근로계약서, "카드 수수료"→카드뉴스, "사업자 등록"→지원사업이 나왔다(2026-11-10 검수).
+  function search(items, query, toFields, words) {
+    var q = String(query || "").trim();
+    if (!q) return items.slice();
+    var w = words || {}, whole = norm(q), skip = (w.skip || []).map(norm), extra = [];
+    (w.same || []).forEach(function (g) {
+      if (!g || !Array.isArray(g.say) || !Array.isArray(g.means)) return; // 사전이 깨져도 검색은 돈다
+      if (!g.say.some(function (s) { return whole.indexOf(norm(s)) !== -1; })) return;
+      g.means.forEach(function (m) { if (extra.indexOf(m) === -1) extra.push(m); });
+    });
+    var toks = q.split(/\s+/).map(norm).filter(function (t) { return t.length >= 2; });
+    function stem(t, tags) {
+      for (var len = t.length; len >= Math.max(2, t.length - 2); len--) {
+        var p = t.slice(0, len);
+        if (skip.indexOf(p) !== -1) return 0;
+        if (tags.indexOf(p) !== -1) return 3;
+      }
+      return 0;
+    }
+    return items
+      .map(function (it, i) {
+        var f = toFields(it), s = score(f, q), tags = (f.aka || []).map(norm);
+        extra.forEach(function (m) { s += score(f, m); });
+        toks.forEach(function (t) { s += stem(t, tags); });
+        return { it: it, i: i, s: s };
+      })
+      .filter(function (x) { return x.s > 0; })
+      .sort(function (a, b) { return b.s - a.s || a.i - b.i; })
+      .map(function (x) { return x.it; });
+  }
+
+  // 글자 수로 자른다 — slice는 이모지를 반으로 잘라 encodeURIComponent가 오류를 낸다(2026-11-10 기술 검수 재현). 짝 잃은 반쪽은 버린다.
+  function clip(s, n) {
+    return Array.from(String(s || "")).slice(0, n).join("").replace(/[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(^|[^\uD800-\uDBFF])[\uDC00-\uDFFF]/g, "$1");
+  }
+
   // 링크는 https 주소 또는 이 사이트 안 상대 경로(apps/pay.html, apps/pay.html#weekly)만 연다.
   function safeUrl(u) {
     var s = String(u || "").trim();
@@ -90,7 +130,7 @@
     return t.getFullYear() + "-" + String(t.getMonth() + 1).padStart(2, "0") + "-" + String(t.getDate()).padStart(2, "0");
   }
 
-  return { norm: norm, score: score, rank: rank, safeUrl: safeUrl, parseAmount: parseAmount, parseCount: parseCount, won: won,
+  return { norm: norm, score: score, rank: rank, search: search, clip: clip, safeUrl: safeUrl, parseAmount: parseAmount, parseCount: parseCount, won: won,
     parseDate: parseDate, fmtDate: fmtDate, daysBetween: daysBetween, addMonths: addMonths,
     fullMonths: fullMonths, todayLocal: todayLocal };
 });
